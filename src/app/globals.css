@@ -1,26 +1,276 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --background: #020204;
+  --foreground: #f3f4f6;
+  --panel-bg: rgba(6, 6, 12, 0.5);
+  --accent-indigo: #8b5cf6;
+  --accent-purple: #a855f7;
+  --accent-cyan: #0ea5e9;
+  --accent-emerald: #10b981;
+  --accent-rose: #f43f5e;
+  --font-outfit: var(--font-outfit), sans-serif;
+  --font-space-grotesk: var(--font-space-grotesk), monospace;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-outfit);
+  overflow-x: hidden;
 }
+
+.font-cyber {
+  font-family: var(--font-space-grotesk);
+}
+
+/* Custom Cyber Scrollbar */
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+::-webkit-scrollbar-track {
+  background: #020204;
+}
+::-webkit-scrollbar-thumb {
+  background: #121222;
+  border-radius: 9px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-indigo);
+}
+
+/* Cybernetic Grid & Dots Layout */
+.cyber-grid {
+  background-image: 
+    linear-gradient(to right, rgba(139, 92, 246, 0.02) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(139, 92, 246, 0.02) 1px, transparent 1px);
+  background-size: 50px 50px;
+}
+
+.cyber-dots {
+  background-image: radial-gradient(rgba(139, 92, 246, 0.05) 1.2px, transparent 1.2px);
+  background-size: 25px 25px;
+}
+
+/* Glassmorphism Panel styles - Translucent, Blur, Glowing border */
+.glass-panel {
+  background: rgba(8, 8, 18, 0.45);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(139, 92, 246, 0.12);
+  box-shadow: 0 10px 40px 0 rgba(0, 0, 0, 0.6);
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-panel-glow-indigo:hover {
+  border-color: rgba(139, 92, 246, 0.35);
+  box-shadow: 0 15px 45px -10px rgba(139, 92, 246, 0.25);
+  transform: translateY(-2.5px);
+}
+
+.glass-panel-glow-emerald:hover {
+  border-color: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 15px 45px -10px rgba(16, 185, 129, 0.2);
+  transform: translateY(-2px);
+}
+
+.glass-panel-glow-cyan:hover {
+  border-color: rgba(14, 165, 233, 0.25);
+  box-shadow: 0 15px 45px -10px rgba(14, 165, 233, 0.2);
+  transform: translateY(-2px);
+}
+
+/* 3D Perspective Skewed Card for high-end SaaS preview */
+.perspective-card {
+  perspective: 1000px;
+}
+
+.perspective-card-inner {
+  transform: rotateY(-14deg) rotateX(8deg) rotateZ(2deg);
+  transform-style: preserve-3d;
+  box-shadow: -20px 20px 50px rgba(0, 0, 0, 0.85), 0 0 30px rgba(139, 92, 246, 0.1);
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.6s ease;
+}
+
+.perspective-card:hover .perspective-card-inner {
+  transform: rotateY(-6deg) rotateX(4deg) rotateZ(1deg);
+  box-shadow: -10px 10px 40px rgba(0, 0, 0, 0.75), 0 0 45px rgba(139, 92, 246, 0.2);
+}
+
+/* Shine Hover Effect for Premium look */
+.shine-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine-effect::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 50%;
+  height: 200%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    rgba(255, 255, 255, 0.08) 50%,
+    transparent 100%
+  );
+  transform: rotate(35deg);
+  pointer-events: none;
+  opacity: 0;
+  transition: none;
+}
+
+.shine-effect:hover::after {
+  left: 150%;
+  opacity: 1;
+  transition: all 1s cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+/* Animations */
+@keyframes cyber-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.scanline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: linear-gradient(to bottom, transparent, var(--accent-indigo), transparent);
+  opacity: 0.5;
+  animation: cyber-scan 5s linear infinite;
+  pointer-events: none;
+  z-index: 10;
+}
+
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.15; transform: scale(1); }
+  50% { opacity: 0.35; transform: scale(1.08); }
+}
+
+.glow-spot {
+  animation: pulse-glow 12s ease-in-out infinite;
+}
+
+@keyframes radar-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.radar-sweep {
+  animation: radar-spin 15s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes flow-line {
+  0% { stroke-dashoffset: 24; }
+  100% { stroke-dashoffset: 0; }
+}
+
+.animate-flow {
+  stroke-dasharray: 8, 4;
+  animation: flow-line 2.5s linear infinite;
+}
+
+@keyframes signal-pulse {
+  0% { transform: scale(0.95); opacity: 0.4; }
+  50% { opacity: 0.8; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+.pulse-ring {
+  animation: signal-pulse 2.2s cubic-bezier(0.24, 0, 0.38, 1) infinite;
+}
+
+/* Custom Gradients */
+.gradient-text-indigo-cyan {
+  background: linear-gradient(135deg, #c7d2fe 0%, #8b5cf6 40%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gradient-text-indigo-purple {
+  background: linear-gradient(135deg, #c7d2fe 0%, #8b5cf6 45%, #a855f7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Grayscale logotypes style */
+.grayscale-logo {
+  filter: grayscale(100%);
+  opacity: 0.35;
+  transition: all 0.3s ease;
+}
+
+.grayscale-logo:hover {
+  filter: grayscale(0%);
+  opacity: 0.9;
+}
+
+/* Interactive Timeline Connectors */
+.step-connecting-line {
+  position: relative;
+}
+
+.step-connecting-line::after {
+  content: '';
+  position: absolute;
+  background: linear-gradient(to right, var(--accent-indigo), var(--accent-cyan));
+  opacity: 0.25;
+}
+
+@media (min-width: 1024px) {
+  .step-connecting-line::after {
+    top: 50%;
+    right: -50%;
+    width: 100%;
+    height: 1px;
+    z-index: -1;
+  }
+}
+
+/* Custom Flow Diagram Animations */
+@keyframes dash-flow {
+  to {
+    stroke-dashoffset: -40;
+  }
+}
+
+.animate-dash-flow {
+  stroke-dasharray: 6, 6;
+  animation: dash-flow 1.5s linear infinite;
+}
+
+@keyframes brain-pulse-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 8px rgba(139, 92, 246, 0.4)) drop-shadow(0 0 20px rgba(139, 92, 246, 0.2));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 20px rgba(14, 165, 233, 0.7)) drop-shadow(0 0 40px rgba(14, 165, 233, 0.4));
+    transform: scale(1.05);
+  }
+}
+
+.animate-brain-glow {
+  animation: brain-pulse-glow 4s ease-in-out infinite;
+}
+
+@keyframes orbit-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-orbit {
+  animation: orbit-rotate 10s linear infinite;
+  transform-origin: center;
+}
+
